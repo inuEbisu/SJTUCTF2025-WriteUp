@@ -1,3 +1,9 @@
+# SJTUCTF2025-WriteUp
+
+犬戎的 WriteUp.
+
+这次的成绩是总榜第三，浙大侧第一 :P
+
 ## Welcom3
 Flag: `0ops{饮水思源}`
 
@@ -384,7 +390,11 @@ if ( !check((__int64)&v16, v19) )
 flag();
 ```
 值得注意的是这里有一个 diviseSum（虽然对于这一小问来说看漏了也没有关系，后面约掉了）。它是这样的一个操作：
-$$ \mathbf{a_2} = (a^*, b^*, c^*)^T = \frac{1}{a' + b' + c'} (a', b', c')^T$$
+
+$$
+\mathbf{a_2} = (a^*, b^*, c^*)^T = \frac{1}{a' + b' + c'} (a', b', c')^T
+$$
+
 来看看 check 函数:
 ```c
 bool __fastcall sub_2711(__int64 a1, double *a2)
@@ -410,15 +420,29 @@ bool __fastcall sub_2711(__int64 a1, double *a2)
 }
 ```
 其中
+
 $$
 \mathbf{a_1} = (a, b, c)^T, ~\mathbf{a_2} = (a^*, b^*, c^*)^T, ~\mathbf{v_4} = \mathbf{i} \times \mathbf{a_2}, ~\mathbf{v_5} = \mathbf{v_4} \times \mathbf{v_3},
 $$
+
 计算得知
-$$ \mathbf{v_5} = (0, b^*, c^*)^T. $$
+
+$$
+\mathbf{v_5} = (0, b^*, c^*)^T.
+$$
+
 要让该函数返回 true，需满足
-$$ \frac{b^*}{c^*} - \frac{b^2}{c^2} = 0, $$
+
+$$
+\frac{b^*}{c^*} - \frac{b^2}{c^2} = 0,
+$$
+
 显然
-$$ b' = b^2,~ c' = c^2$$
+
+$$
+b' = b^2,~ c' = c^2
+$$
+
 即为一解。
 
 ```sh
@@ -1958,6 +1982,7 @@ $$
 $$
 
 如果两次签名使用了相同的 $k$，则 $r$ 也相同。于是：
+
 $$
 \begin{align*}
     s_1 &= (h_1 + d \cdot r) \cdot k^{-1} \bmod n \\
@@ -1966,6 +1991,7 @@ $$
 $$
 
 故
+
 $$
 \begin{align*}
     k &\equiv (h_1 + d \cdot r) \cdot s_1^{-1} \pmod{n} \\
@@ -1978,6 +2004,7 @@ $$
 $$
 
 所以
+
 $$
 d \equiv \frac{h_1 \cdot s_2 - h_2 \cdot s_1}{r \cdot (s_1 - s_2)} \pmod{n}
 $$
